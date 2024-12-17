@@ -21,12 +21,6 @@ export class User {
   @Prop({ required: true, trim: true })
   contrasena: string;
 
-  /**
-   * Propiedad para oktaId
-   * No es oblogatorio
-   */
-  @Prop({ required: false })
-  oktaId: string;
 }
 
 export const userSchema = SchemaFactory.createForClass(User);
