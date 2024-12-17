@@ -4,12 +4,13 @@ import { AppService } from './app.service';
 import { MongooseModule } from '@nestjs/mongoose';
 import { ConfigModule, ConfigService } from '@nestjs/config';
 import { connectDB } from './config/db';
+import { UsersModule } from './modules/users/users.module';
 
 @Module({
   imports: [
     ConfigModule.forRoot({
       load: [connectDB],
-      envFilePath: `./env/${process.env.NODE_ENV}.env`,
+      envFilePath: `.env`,
       isGlobal: true,
     }),
     MongooseModule.forRootAsync({
@@ -19,6 +20,7 @@ import { connectDB } from './config/db';
       }),
       inject: [ConfigService],
     }),
+    UsersModule,
   ],
   controllers: [AppController],
   providers: [AppService],
