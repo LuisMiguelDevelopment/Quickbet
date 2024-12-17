@@ -42,9 +42,5 @@ export class CreateUserDto {
   })
   contrasena: string;
 
-  /**
-   * Id Okta
-   */
-  @IsString()
-  oktaId: string;
+
 }
