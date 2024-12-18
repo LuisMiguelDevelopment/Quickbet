@@ -15,6 +15,11 @@ export class MoviesController {
     return this.moviesService.nowPaying();
   }
 
+  @Get('up-coming')
+  async getUpComing() {
+    return this.moviesService.upComing();
+  }
+
   @Get('buscar-movie')
   async buscarMovie(@Query('query') query: string) {
     return this.moviesService.buscarMoviePorTitulo(query);
