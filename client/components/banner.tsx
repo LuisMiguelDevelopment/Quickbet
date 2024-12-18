@@ -35,7 +35,6 @@ export const Banner = () => {
   return (
     <>
       <div
-        className="w-full flex"
         style={{
           position: "relative",
           backgroundImage: `url(${backdropUrl})`,
@@ -43,7 +42,7 @@ export const Banner = () => {
           backgroundRepeat: "no-repeat",
           backgroundPosition: "center",
           height: "500px",
-          width: "100vw",
+          width: "100%",
           color: "white",
         }}
       >

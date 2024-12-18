@@ -19,8 +19,11 @@ export const MovieList = () => {
     <>
       {movies.map((movie, index) => {
         return (
-          <div key={index}>
-            <Card className=" max-w-[200px] h-[375px]">
+          <div key={index} className="flex gap-5">
+            <Card
+              className=" max-w-[300px] h-[375px]"
+              style={{ width: "200px" }}
+            >
               <CardHeader className="flex p-0 w-full ">
                 <Image
                   alt={movie.title}
