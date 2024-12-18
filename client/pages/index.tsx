@@ -4,10 +4,13 @@ import MovieList from "@/components/popular";
 import { useRef } from "react";
 import NowPaying from "@/components/nowPaying";
 import UpComing from "@/components/upComing";
+import TopRate from "@/components/topRate";
 
 export default function IndexPage() {
   const movieListRef = useRef<HTMLDivElement>(null);
   const nowPayingRef = useRef<HTMLDivElement>(null);
+  const upcomingRef = useRef<HTMLDivElement>(null);
+  const topRateRef = useRef<HTMLDivElement>(null);
 
   const handleMouseDown = (
     e: React.MouseEvent<HTMLDivElement> | React.TouchEvent<HTMLDivElement>,
@@ -54,7 +57,7 @@ export default function IndexPage() {
       </section>
       <div className="flex">
         <section
-          style={{ width: "500px", height: "100vh", background: "#262626" }}
+          style={{ width: "500px", height: "100%", background: "#262626" }}
         ></section>
         <div className="gap-5 mt-5 overflow-x-hidden ml-5">
           <section className="w-full">
@@ -80,15 +83,28 @@ export default function IndexPage() {
               <NowPaying />
             </div>
           </section>
+
           <section className="w-full">
             <h2 style={{ fontSize: "1.8rem" }}>Upcoming</h2>
             <div
-              ref={nowPayingRef}
-              onMouseDown={(e) => handleMouseDown(e, nowPayingRef)}
-              onTouchStart={(e) => handleMouseDown(e, nowPayingRef)}
+              ref={upcomingRef}
+              onMouseDown={(e) => handleMouseDown(e, upcomingRef)}
+              onTouchStart={(e) => handleMouseDown(e, upcomingRef)}
               className="flex gap-5 mt-5 overflow-x-hidden scrollbar-hide cursor-grab"
             >
               <UpComing />
+            </div>
+          </section>
+
+          <section className="w-full">
+            <h2 style={{ fontSize: "1.8rem" }}>Top rate</h2>
+            <div
+              ref={topRateRef}
+              onMouseDown={(e) => handleMouseDown(e, topRateRef)}
+              onTouchStart={(e) => handleMouseDown(e, topRateRef)}
+              className="flex gap-5 mt-5 overflow-x-hidden scrollbar-hide cursor-grab"
+            >
+              <TopRate />
             </div>
           </section>
         </div>

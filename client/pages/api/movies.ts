@@ -35,3 +35,15 @@ export const ObtenerUpComingRequest = async (): Promise<
     throw error;
   }
 };
+
+export const ObtenerTopRateRequest = async (): Promise<
+  Record<string, any>[]
+> => {
+  try {
+    const response = await axios.get("/movies/top-rate");
+    return response.data;
+  } catch (error) {
+    console.error("Error al obtener las películas", error);
+    throw error;
+  }
+};
