@@ -129,4 +129,21 @@ export class MoviesService {
       throw new Error('No se pudo obtener la pelicula');
     }
   }
+
+  async buscarMoviesPorPopularidad() {
+    try {
+      const res = await axios.get(`${this.apiUrl}/discover/movie`, {
+        params: {
+          api_key: this.apiKey,
+          language: 'es-ES',
+          sort_by: 'popularity.desc',
+        },
+      });
+
+      return res.data.results;
+    } catch (error) {
+      console.log(error);
+      throw new Error('No se pudieron obtener las películas por popularidad');
+    }
+  }
 }

@@ -40,6 +40,11 @@ export class MoviesController {
     return this.moviesService.buscarMoviesPorGenero(generoId);
   }
 
+  @Get('buscar-por-popularidad')
+  async buscarPorPopularidad() {
+    return this.moviesService.buscarMoviesPorPopularidad();
+  }
+  
   @Get(':id')
   async getDetallesMovie(@Param('id') id: number) {
     return this.moviesService.detallesMovies(id);
