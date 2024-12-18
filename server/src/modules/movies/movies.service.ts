@@ -20,6 +20,20 @@ export class MoviesService {
     }
   }
 
+  async nowPaying() {
+    try {
+      const res = await axios.get(`${this.apiUrl}/movie/now_playing`, {
+        params: {
+          api_key: this.apiKey,
+          language: 'es-ES',
+        },
+      });
+      return res.data.results;
+    } catch (error) {
+      throw new Error('No se pudieron obtener las películas');
+    }
+  }
+
   async buscarMoviePorTitulo(query: string): Promise<any> {
     if (!query) {
       console.log('Query is undefined', query);
