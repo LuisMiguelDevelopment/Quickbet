@@ -10,6 +10,8 @@ import {
   ObtenerTodasPeliculasRequest,
   ObtenerNowPayingRequest,
   ObtenerUpComingRequest,
+  ObtenerTopRateRequest,
+  BuscarMovieRequest,
 } from "@/pages/api/movies";
 
 interface MoviesContestType {
@@ -18,11 +20,13 @@ interface MoviesContestType {
   nowPaying: Record<string, any>[];
   upComing: Record<string, any>[];
   topRate: Record<string, any>[];
+  searchResults: Record<string, any>[];
   ObtenerTodasPeliculas: () => Promise<void>;
   ObtenerNowPaying: () => Promise<void>;
   ObtenerUpComing: () => Promise<void>;
   ObtenerTopRate: () => Promise<void>;
   ObtenerPeliculaAleatoria: () => void;
+  BuscarMovie: (query: string) => Promise<void>;
 }
 
 export const MoviesContext = createContext<MoviesContestType | undefined>(
@@ -53,6 +57,7 @@ export const MoviesContextProvider: React.FC<MyContextProviderProps> = ({
   const [randomMovie, setRandomMovie] = useState<Record<string, any> | null>(
     null
   );
+  const [searchResults, setSearchResults] = useState<Record<string, any>[]>([]);
 
   const ObtenerTodasPeliculas = async () => {
     try {
@@ -84,7 +89,7 @@ export const MoviesContextProvider: React.FC<MyContextProviderProps> = ({
   };
   const ObtenerTopRate = async () => {
     try {
-      const res = await ObtenerUpComingRequest();
+      const res = await ObtenerTopRateRequest();
       console.log(res, "hey");
       setTopRate(res);
     } catch (error) {
@@ -101,17 +106,29 @@ export const MoviesContextProvider: React.FC<MyContextProviderProps> = ({
     setRandomMovie(movieSeleccionada);
   };
 
+  const BuscarMovie = async (query: string) => {
+    try {
+      const res = await BuscarMovieRequest(query);
+      setSearchResults(res);
+      console.log(res);
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
   const movieContextValue: MoviesContestType = {
     movies,
     randomMovie,
     nowPaying,
     upComing,
     topRate,
+    searchResults,
     ObtenerTodasPeliculas,
     ObtenerPeliculaAleatoria,
     ObtenerNowPaying,
     ObtenerUpComing,
     ObtenerTopRate,
+    BuscarMovie,
   };
 
   return (

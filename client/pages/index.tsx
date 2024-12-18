@@ -1,12 +1,18 @@
 import DefaultLayout from "@/layouts/default";
 import { Banner } from "@/components/banner";
 import MovieList from "@/components/popular";
-import { useRef } from "react";
+import { useRef, useState } from "react";
 import NowPaying from "@/components/nowPaying";
 import UpComing from "@/components/upComing";
 import TopRate from "@/components/topRate";
+import { useMovieContext } from "@/context/movies.context";
+import SearchBar from "@/components/inputSearch";
+import CardSearch from "@/components/cardSearch";
 
 export default function IndexPage() {
+  const { BuscarMovie, searchResults } = useMovieContext();
+  const [isSearching, setIsSearching] = useState<boolean>(false);
+
   const movieListRef = useRef<HTMLDivElement>(null);
   const nowPayingRef = useRef<HTMLDivElement>(null);
   const upcomingRef = useRef<HTMLDivElement>(null);
@@ -50,6 +56,13 @@ export default function IndexPage() {
     window.addEventListener("touchend", onUp);
   };
 
+  const handleSearch = async (query: string) => {
+    if (query.trim()) {
+      setIsSearching(true);
+      await BuscarMovie(query);
+    }
+  };
+
   return (
     <DefaultLayout>
       <section>
@@ -58,55 +71,65 @@ export default function IndexPage() {
       <div className="flex" style={{ height: "100vh" }}>
         <section
           style={{ width: "600px", height: "100%", background: "#262626" }}
-        ></section>
+        >
+          <SearchBar onSearch={handleSearch} />
+        </section>
         <div className="gap-5 mt-5 overflow-x-hidden ml-5">
-          <section className="w-full">
-            <h2 style={{ fontSize: "1.8rem" }}>Popular</h2>
-            <div
-              ref={movieListRef}
-              onMouseDown={(e) => handleMouseDown(e, movieListRef)}
-              onTouchStart={(e) => handleMouseDown(e, movieListRef)}
-              className="flex gap-5 mt-5 overflow-x-hidden scrollbar-hide cursor-grab"
-            >
-              <MovieList />
+          {isSearching ? (
+            <div>
+              <CardSearch movieSearch={searchResults} />
             </div>
-          </section>
+          ) : (
+            <div>
+              <section className="w-full">
+                <h2 style={{ fontSize: "1.8rem" }}>Popular</h2>
+                <div
+                  ref={movieListRef}
+                  onMouseDown={(e) => handleMouseDown(e, movieListRef)}
+                  onTouchStart={(e) => handleMouseDown(e, movieListRef)}
+                  className="flex gap-5 mt-5 overflow-x-hidden scrollbar-hide cursor-grab"
+                >
+                  <MovieList />
+                </div>
+              </section>
 
-          <section className="w-full">
-            <h2 style={{ fontSize: "1.8rem" }}>Now Paying</h2>
-            <div
-              ref={nowPayingRef}
-              onMouseDown={(e) => handleMouseDown(e, nowPayingRef)}
-              onTouchStart={(e) => handleMouseDown(e, nowPayingRef)}
-              className="flex gap-5 mt-5 overflow-x-hidden scrollbar-hide cursor-grab"
-            >
-              <NowPaying />
-            </div>
-          </section>
+              <section className="w-full">
+                <h2 style={{ fontSize: "1.8rem" }}>Now Paying</h2>
+                <div
+                  ref={nowPayingRef}
+                  onMouseDown={(e) => handleMouseDown(e, nowPayingRef)}
+                  onTouchStart={(e) => handleMouseDown(e, nowPayingRef)}
+                  className="flex gap-5 mt-5 overflow-x-hidden scrollbar-hide cursor-grab"
+                >
+                  <NowPaying />
+                </div>
+              </section>
 
-          <section className="w-full">
-            <h2 style={{ fontSize: "1.8rem" }}>Upcoming</h2>
-            <div
-              ref={upcomingRef}
-              onMouseDown={(e) => handleMouseDown(e, upcomingRef)}
-              onTouchStart={(e) => handleMouseDown(e, upcomingRef)}
-              className="flex gap-5 mt-5 overflow-x-hidden scrollbar-hide cursor-grab"
-            >
-              <UpComing />
-            </div>
-          </section>
+              <section className="w-full">
+                <h2 style={{ fontSize: "1.8rem" }}>Upcoming</h2>
+                <div
+                  ref={upcomingRef}
+                  onMouseDown={(e) => handleMouseDown(e, upcomingRef)}
+                  onTouchStart={(e) => handleMouseDown(e, upcomingRef)}
+                  className="flex gap-5 mt-5 overflow-x-hidden scrollbar-hide cursor-grab"
+                >
+                  <UpComing />
+                </div>
+              </section>
 
-          <section className="w-full">
-            <h2 style={{ fontSize: "1.8rem" }}>Top rate</h2>
-            <div
-              ref={topRateRef}
-              onMouseDown={(e) => handleMouseDown(e, topRateRef)}
-              onTouchStart={(e) => handleMouseDown(e, topRateRef)}
-              className="flex gap-5 mt-5 overflow-x-hidden scrollbar-hide cursor-grab"
-            >
-              <TopRate />
+              <section className="w-full">
+                <h2 style={{ fontSize: "1.8rem" }}>Top rate</h2>
+                <div
+                  ref={topRateRef}
+                  onMouseDown={(e) => handleMouseDown(e, topRateRef)}
+                  onTouchStart={(e) => handleMouseDown(e, topRateRef)}
+                  className="flex gap-5 mt-5 overflow-x-hidden scrollbar-hide cursor-grab"
+                >
+                  <TopRate />
+                </div>
+              </section>
             </div>
-          </section>
+          )}
         </div>
       </div>
     </DefaultLayout>
