@@ -20,6 +20,11 @@ export class MoviesController {
     return this.moviesService.upComing();
   }
 
+  @Get('top-rate')
+  async getTopRate() {
+    return this.moviesService.topRate();
+  }
+
   @Get('buscar-movie')
   async buscarMovie(@Query('query') query: string) {
     return this.moviesService.buscarMoviePorTitulo(query);
