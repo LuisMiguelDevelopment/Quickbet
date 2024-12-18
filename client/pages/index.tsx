@@ -2,12 +2,17 @@ import DefaultLayout from "@/layouts/default";
 import { Banner } from "@/components/banner";
 import MovieList from "@/components/popular";
 import { useRef } from "react";
+import NowPaying from "@/components/nowPaying";
 
 export default function IndexPage() {
-  const scrollContainerRef = useRef<HTMLDivElement>(null);
+  const movieListRef = useRef<HTMLDivElement>(null);
+  const nowPayingRef = useRef<HTMLDivElement>(null);
 
-  const handleMouseDown = (e: React.MouseEvent<HTMLDivElement>) => {
-    const container = scrollContainerRef.current;
+  const handleMouseDown = (
+    e: React.MouseEvent<HTMLDivElement>,
+    ref: React.RefObject<HTMLDivElement>
+  ) => {
+    const container = ref.current;
     if (!container) return;
 
     container.style.cursor = "grabbing";
@@ -39,21 +44,33 @@ export default function IndexPage() {
         <section className="">
           <Banner />
         </section>
-        <div className="flex">
+        <div className="flex ">
           <section
-            className="bg-gray-900"
-            style={{ width: "200px", height: "100vh" }}
+            style={{ width: "500px", height: "100vh", background: "#262626" }}
           ></section>
-          <section className="w-full">
-            <h2 style={{fontSize:"1.8rem"}}  >Popular</h2>
-            <div
-              ref={scrollContainerRef}
-              onMouseDown={handleMouseDown}
-              className="flex gap-5 mt-5 overflow-x-hidden scrollbar-hide cursor-grab "
-            >
-              <MovieList />
-            </div>
-          </section>
+          <div className=" gap-5 mt-5 overflow-x-hidden  ml-5">
+            <section className="w-full ">
+              <h2 style={{ fontSize: "1.8rem" }}>Popular</h2>
+              <div
+                ref={movieListRef}
+                onMouseDown={(e) => handleMouseDown(e, movieListRef)}
+                className="flex gap-5 mt-5 overflow-x-hidden scrollbar-hide cursor-grab "
+              >
+                <MovieList />
+              </div>
+            </section>
+
+            <section className="w-full">
+              <h2 style={{ fontSize: "1.8rem" }}>Now Paying</h2>
+              <div
+                ref={nowPayingRef}
+                onMouseDown={(e) => handleMouseDown(e, nowPayingRef)}
+                className="flex gap-5 mt-5 overflow-x-hidden scrollbar-hide cursor-grab "
+              >
+                <NowPaying />
+              </div>
+            </section>
+          </div>
         </div>
       </DefaultLayout>
     </>

@@ -6,12 +6,17 @@ import {
   useEffect,
 } from "react";
 
-import { ObtenerTodasPeliculasRequest } from "@/pages/api/movies";
+import {
+  ObtenerTodasPeliculasRequest,
+  ObtenerNowPayingRequest,
+} from "@/pages/api/movies";
 
 interface MoviesContestType {
   movies: Record<string, any>[];
   randomMovie: Record<string, any> | null;
+  nowPaying: Record<string, any>[];
   ObtenerTodasPeliculas: () => Promise<void>;
+  ObtenerNowPaying: () => Promise<void>;
   ObtenerPeliculaAleatoria: () => void;
 }
 
@@ -37,6 +42,7 @@ export const MoviesContextProvider: React.FC<MyContextProviderProps> = ({
   children,
 }) => {
   const [movies, setMovies] = useState<Record<string, any>[]>([]);
+  const [nowPaying, setNowPaying] = useState<Record<string, any>[]>([]);
   const [randomMovie, setRandomMovie] = useState<Record<string, any> | null>(
     null
   );
@@ -46,6 +52,16 @@ export const MoviesContextProvider: React.FC<MyContextProviderProps> = ({
       const res = await ObtenerTodasPeliculasRequest();
       console.log(res);
       setMovies(res);
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  const ObtenerNowPaying = async () => {
+    try {
+      const res = await ObtenerNowPayingRequest();
+      console.log(res, "hey");
+      setNowPaying(res);
     } catch (error) {
       console.log(error);
     }
@@ -63,8 +79,10 @@ export const MoviesContextProvider: React.FC<MyContextProviderProps> = ({
   const movieContextValue: MoviesContestType = {
     movies,
     randomMovie,
+    nowPaying,
     ObtenerTodasPeliculas,
     ObtenerPeliculaAleatoria,
+    ObtenerNowPaying,
   };
 
   return (
