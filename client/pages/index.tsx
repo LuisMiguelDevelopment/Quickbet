@@ -3,6 +3,7 @@ import { Banner } from "@/components/banner";
 import MovieList from "@/components/popular";
 import { useRef } from "react";
 import NowPaying from "@/components/nowPaying";
+import UpComing from "@/components/upComing";
 
 export default function IndexPage() {
   const movieListRef = useRef<HTMLDivElement>(null);
@@ -77,6 +78,17 @@ export default function IndexPage() {
               className="flex gap-5 mt-5 overflow-x-hidden scrollbar-hide cursor-grab"
             >
               <NowPaying />
+            </div>
+          </section>
+          <section className="w-full">
+            <h2 style={{ fontSize: "1.8rem" }}>Upcoming</h2>
+            <div
+              ref={nowPayingRef}
+              onMouseDown={(e) => handleMouseDown(e, nowPayingRef)}
+              onTouchStart={(e) => handleMouseDown(e, nowPayingRef)}
+              className="flex gap-5 mt-5 overflow-x-hidden scrollbar-hide cursor-grab"
+            >
+              <UpComing />
             </div>
           </section>
         </div>
