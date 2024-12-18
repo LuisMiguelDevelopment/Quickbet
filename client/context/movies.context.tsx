@@ -56,6 +56,7 @@ export const MoviesContextProvider: React.FC<MyContextProviderProps> = ({
 
     const randomIndex = Math.floor(Math.random() * movies.length);
     const movieSeleccionada = movies[randomIndex];
+    console.log(movieSeleccionada);
     setRandomMovie(movieSeleccionada);
   };
 
