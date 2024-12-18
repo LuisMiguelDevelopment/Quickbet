@@ -55,9 +55,9 @@ export default function IndexPage() {
       <section>
         <Banner />
       </section>
-      <div className="flex">
+      <div className="flex" style={{ height: "100vh" }}>
         <section
-          style={{ width: "500px", height: "100%", background: "#262626" }}
+          style={{ width: "600px", height: "100%", background: "#262626" }}
         ></section>
         <div className="gap-5 mt-5 overflow-x-hidden ml-5">
           <section className="w-full">
