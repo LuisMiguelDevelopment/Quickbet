@@ -68,7 +68,11 @@ export const Banner = () => {
           >
             <FaHeart />
           </div>
-          <ProgresoCirculo porcentaje={average} />
+          <ProgresoCirculo
+            porcentaje={average}
+            size={"120px"}
+            fontSize="20px"
+          />
         </div>
       </div>
     </>

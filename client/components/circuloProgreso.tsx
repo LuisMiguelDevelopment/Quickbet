@@ -1,10 +1,15 @@
 interface ProgressCircleProps {
   porcentaje: number;
+  size?: string;
+  fontSize: string;
 }
 
-const ProgresoCirculo: React.FC<ProgressCircleProps> = ({ porcentaje }) => {
-    
-  const totalPorcetaje =porcentaje / 10 * 100;
+const ProgresoCirculo: React.FC<ProgressCircleProps> = ({
+  porcentaje,
+  size,
+  fontSize,
+}) => {
+  const totalPorcetaje = (porcentaje / 10) * 100;
 
   const normalizarPorcentaje = Math.min(100, Math.max(0, totalPorcetaje));
 
@@ -15,11 +20,11 @@ const ProgresoCirculo: React.FC<ProgressCircleProps> = ({ porcentaje }) => {
     circunferencia - (normalizarPorcentaje / 100) * circunferencia;
 
   return (
-    <div style={{ position: "relative", width: "120px", height: "120px" }}>
+    <div style={{ position: "relative", width: size, height: size }}>
       {/* Círculo de fondo */}
       <svg
-        width="120"
-        height="120"
+        width={size}
+        height={size}
         viewBox="0 0 120 120"
         style={{ transform: "rotate(-90deg)" }}
       >
@@ -54,12 +59,12 @@ const ProgresoCirculo: React.FC<ProgressCircleProps> = ({ porcentaje }) => {
           top: "50%",
           left: "50%",
           transform: "translate(-50%, -50%)",
-          fontSize: "18px",
+          fontSize: fontSize,
           fontWeight: "bold",
           color: "#4caf50",
         }}
       >
-        {normalizarPorcentaje.toFixed(2)}%
+        {normalizarPorcentaje.toFixed(0)}%
       </div>
     </div>
   );
